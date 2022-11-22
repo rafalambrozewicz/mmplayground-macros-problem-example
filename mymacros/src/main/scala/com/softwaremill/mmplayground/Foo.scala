@@ -26,47 +26,47 @@ object MapToMacro {
 
     val t: Type = weakTypeOf[CASE_CLASS]
 
-    val classSymbol: ClassSymbol = t.typeSymbol.asClass
-    mprint("classSymbol", classSymbol)
-    val className: TermName = classSymbol.asType.name.toTermName
-    mprint("className", className)
-
-    // ===
-
-    val fullyQualifiedName = t.typeConstructor.toString
-    mprint("fullyQualifiedName", fullyQualifiedName)
-    mprint("fullyQualifiedName parsed", c.parse(fullyQualifiedName))
-
-    // ===
-
-    val constructorSymbol = t.member(termNames.CONSTRUCTOR)
-    mprint("constructorSymbol", constructorSymbol)
-
+//    val classSymbol: ClassSymbol = t.typeSymbol.asClass
+//    mprint("classSymbol", classSymbol)
+//    val className: TermName = classSymbol.asType.name.toTermName
+//    mprint("className", className)
+//
+//    // ===
+//
+//    val fullyQualifiedName = t.typeConstructor.toString
+//    mprint("fullyQualifiedName", fullyQualifiedName)
+//    mprint("fullyQualifiedName parsed", c.parse(fullyQualifiedName))
+//
+//    // ===
+//
+//    val constructorSymbol = t.member(termNames.CONSTRUCTOR)
+//    mprint("constructorSymbol", constructorSymbol)
+//
     // ===
 
     val constructorMethod = Select(New(Ident(t.dealias.typeSymbol)), termNames.CONSTRUCTOR)
     mprint("constructorMethod", constructorMethod)
 
     // ===
-
-    val asSeenFrom = classSymbol.asClass.selfType.asSeenFrom(c.enclosingClass.tpe, c.enclosingClass.symbol)
-    mprint("asSeenFrom", asSeenFrom)
-
-    // ====
-
-    val whatCausedExpansion = c.macroApplication
-    mprint("whatCausedExpansion", whatCausedExpansion)
-
-    // ===
-
-//    val classToExpand = c.enclosingClass
-//    mprint("classToExpand", classToExpand)
-
-    // ==
-
-    val allSymbols = Seq.unfold(t.typeSymbol)( s => if (c != c.mirror.RootClass && s.isClass) Some((s, s.owner)) else None)
-    val allSymbolsReadable = allSymbols.foldRight("")((s, result) => s"$result${s.name}." )
-    mprint("allSymbolsReadable", allSymbolsReadable)
+//
+//    val asSeenFrom = classSymbol.asClass.selfType.asSeenFrom(c.enclosingClass.tpe, c.enclosingClass.symbol)
+//    mprint("asSeenFrom", asSeenFrom)
+//
+//    // ====
+//
+//    val whatCausedExpansion = c.macroApplication
+//    mprint("whatCausedExpansion", whatCausedExpansion)
+//
+//    // ===
+//
+////    val classToExpand = c.enclosingClass
+////    mprint("classToExpand", classToExpand)
+//
+//    // ==
+//
+//    val allSymbols = Seq.unfold(t.typeSymbol)( s => if (c != c.mirror.RootClass && s.isClass) Some((s, s.owner)) else None)
+//    val allSymbolsReadable = allSymbols.foldRight("")((s, result) => s"$result${s.name}." )
+//    mprint("allSymbolsReadable", allSymbolsReadable)
 
     // ==
 
